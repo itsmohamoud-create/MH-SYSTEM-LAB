@@ -1,0 +1,36 @@
+name = "mh-systems-lab-worker"
+main = "src/worker.ts"
+compatibility_date = "2024-12-15"
+account_id = "YOUR_CLOUDFLARE_ACCOUNT_ID"
+
+# -----------------
+# Cloudflare Pages / Frontend Settings
+# -----------------
+[site]
+bucket = "dist"
+entry-point = "worker"
+
+# -----------------
+# Storage & Database Bindings (for Sovereign Stack)
+# -----------------
+# D1 Database Binding
+[[d1_databases]]
+binding = "DB"
+database_name = "sovereign_method_db"
+database_id = "YOUR_D1_DATABASE_ID"
+
+# R2 Object Storage Binding
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "sovereign-data-storage"
+
+# -----------------
+# AI/Env Variables (for Workers AI)
+# -----------------
+[vars]
+GEMINI_API_KEY = "GEMINI_API_KEY_FROM_SECRETS" # Will be set in Cloudflare Secrets
+
+# Workers AI Binding (The @cf/...)
+[[ai]]
+binding = "AI"
+
