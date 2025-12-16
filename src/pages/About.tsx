@@ -26,45 +26,6 @@ const About: React.FC = () => {
         </GlassCard>
       </section>
 
-      <section className="mb-20">
-        <GlassCard className="p-8 md:p-12 border-sovereign-gold/50" goldBorder>
-          <div className="flex flex-col md:flex-row gap-12 items-start">
-            <div className="w-full md:w-1/3">
-              <div className="aspect-[3/4] bg-white/5 rounded-2xl overflow-hidden border border-white/10 relative">
-                 <div className="absolute inset-0 flex items-center justify-center text-white/20">
-                   {/* Placeholder for Founder Image */}
-                   <span className="text-6xl">MH</span>
-                 </div>
-              </div>
-            </div>
-            <div className="flex-1">
-              <h2 className="text-4xl font-bold text-white mb-2">Mohamoud Hassan</h2>
-              <p className="text-sovereign-gold text-lg mb-6 font-medium">Human Transformation Strategist & Founder</p>
-              
-              <div className="flex flex-wrap gap-2 mb-8">
-                {['Qualified Counsellor', 'Holistic Life Coach', 'Nutritionist', 'Business Developer'].map(cred => (
-                  <span key={cred} className="px-3 py-1 bg-white/10 rounded-full text-xs text-white/80 border border-white/5">
-                    {cred}
-                  </span>
-                ))}
-              </div>
-
-              <div className="space-y-6 text-white/70">
-                <p>
-                  With 15+ years of experience, Mohamoud has guided individuals through complete life transformation across mental health, chronic illness reversal, relationship engineering, career development, and business launch.
-                </p>
-                <p>
-                  His multidisciplinary approach integrates counseling, nutrition science, behavioral psychology, faith-based healing, and business strategy.
-                </p>
-                <blockquote className="border-l-4 border-sovereign-gold pl-6 py-2 my-8 italic text-white text-xl">
-                  "True transformation requires systems, not motivation. Motivation fades. Systems sustain."
-                </blockquote>
-              </div>
-            </div>
-          </div>
-        </GlassCard>
-      </section>
-
       <section className="mb-20 grid grid-cols-1 md:grid-cols-3 gap-8">
         <GlassCard className="p-8 text-center">
            <div className="w-16 h-16 bg-sovereign-gold/20 rounded-full flex items-center justify-center mx-auto mb-6 text-sovereign-gold">
@@ -89,7 +50,6 @@ const About: React.FC = () => {
         </GlassCard>
       </section>
 
-      {/* Memorial Section */}
       <section className="mb-20">
         <GlassCard className="p-12 md:p-16 text-center border-sovereign-gold relative overflow-hidden" goldBorder>
           <div className="absolute inset-0 bg-gradient-to-b from-sovereign-gold/5 to-transparent pointer-events-none"></div>

@@ -1,19 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom'; // <--- ADDED IMPORT
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 
 const rootElement = document.getElementById('root');
+
 if (!rootElement) {
-  // Defensive check for the root element, good practice
-  throw new Error("Could not find root element to mount to");
+  throw new Error('Root element not found');
 }
 
-const root = ReactDOM.createRoot(rootElement);
-root.render(
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <BrowserRouter> // <--- ADDED WRAPPER
+    <BrowserRouter>
       <App />
-    </BrowserRouter> // <--- ADDED WRAPPER
+    </BrowserRouter>
   </React.StrictMode>
 );
