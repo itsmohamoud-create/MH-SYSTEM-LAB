@@ -1,86 +1,113 @@
 import React, { useState, useEffect } from 'react';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import { NavItem } from '../types';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+
+const navItems: NavItem[] = [
+  { label: 'Home', path: '/' },
+  { label: 'Programmes', path: '/programmes' },
+  { label: 'Experts', path: '/experts' },
+  { label: 'Resources', path: '/resources' },
+  { label: 'About', path: '/about' },
+  { label: 'Contact', path: '/contact' },
+];
 
 const Navigation: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { path: '/programmes', label: 'Programmes' },
-    { path: '/experts', label: 'Experts' },
-    { path: '/courses', label: 'Courses' },
-    { path: '/resources', label: 'Resources' },
-    { path: '/about', label: 'About' },
-    { path: '/blog', label: 'Blog' },
-    { path: '/contact', label: 'Contact' }
-  ];
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-midnight/95 backdrop-blur-xl shadow-2xl' : 'bg-transparent'
-    }`}>
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-sovereign-gold to-amber-600 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform">
-              <span className="text-midnight font-bold text-xl">MH</span>
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-              SYSTEMS LAB
-            </span>
-          </Link>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-[#0F2027]/80 backdrop-blur-lg border-b border-white/10 py-3'
+          : 'bg-transparent py-6'
+      }`}
+    >
+      <div className="container mx-auto px-6 flex items-center justify-between">
+        {/* Logo */}
+        <Link to="/" className="flex flex-col group">
+          <h1 className="text-2xl font-bold tracking-tighter text-white group-hover:text-sovereign-gold transition-colors duration-300">
+            MH SYSTEMS LAB
+          </h1>
+          <p className="text-xs italic text-sovereign-gold tracking-wide">
+            The Sovereign Method™
+          </p>
+        </Link>
 
-          <div className="hidden lg:flex items-center space-x-8">
-            {navLinks.map(link => (
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex items-center space-x-8">
+          {navItems.map((item) => (
+            <li key={item.label} className="relative group">
               <Link
-                key={link.path}
-                to={link.path}
-                className={`text-sm font-medium transition-colors ${
-                  location.pathname === link.path
+                to={item.path}
+                className={`text-sm font-medium tracking-wide transition-colors duration-300 ${
+                  location.pathname === item.path
                     ? 'text-sovereign-gold'
                     : 'text-white/80 hover:text-white'
                 }`}
               >
-                {link.label}
+                {item.label}
               </Link>
-            ))}
-          </div>
+              {/* Underline Effect */}
+              <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-sovereign-gold transition-all duration-300 group-hover:w-full ${location.pathname === item.path ? 'w-full' : ''}`} />
+            </li>
+          ))}
+        </ul>
 
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden text-white p-2"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        {/* CTA Button */}
+        <div className="hidden md:block">
+          <button className="px-6 py-2 rounded-full border border-sovereign-gold/40 text-sovereign-gold hover:bg-sovereign-gold hover:text-midnight transition-all duration-300 text-sm font-semibold uppercase tracking-wider shadow-[0_0_15px_rgba(212,175,55,0.1)] hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+            Catalogue
           </button>
         </div>
 
-        {isMobileMenuOpen && (
-          <div className="lg:hidden pb-6 space-y-4">
-            {navLinks.map(link => (
+        {/* Mobile Toggle */}
+        <button
+          className="md:hidden text-white hover:text-sovereign-gold transition-colors"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      <div
+        className={`md:hidden absolute top-full left-0 w-full bg-[#0F2027]/95 backdrop-blur-xl border-b border-white/10 transition-all duration-300 overflow-hidden ${
+          isOpen ? 'max-h-[500px] py-6' : 'max-h-0 py-0'
+        }`}
+      >
+        <ul className="flex flex-col items-center space-y-4">
+          {navItems.map((item) => (
+            <li key={item.label}>
               <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`block text-base font-medium transition-colors ${
-                  location.pathname === link.path
-                    ? 'text-sovereign-gold'
-                    : 'text-white/80 hover:text-white'
-                }`}
+                to={item.path}
+                className="text-lg font-medium text-white hover:text-sovereign-gold transition-colors"
               >
-                {link.label}
+                {item.label}
               </Link>
-            ))}
-          </div>
-        )}
+            </li>
+          ))}
+          <li className="pt-4">
+             <button className="px-8 py-3 rounded-full bg-sovereign-gold text-midnight font-bold uppercase tracking-wider">
+              Request Catalogue
+            </button>
+          </li>
+        </ul>
       </div>
     </nav>
   );

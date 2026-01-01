@@ -21,15 +21,14 @@ const Starfield: React.FC = () => {
 
     const initStars = () => {
       stars = [];
-      // Calculate number of stars based on screen area for consistent density
-      const numStars = Math.floor((window.innerWidth * window.innerHeight) / 10000); 
+      const numStars = Math.floor((window.innerWidth * window.innerHeight) / 10000);
       for (let i = 0; i < numStars; i++) {
         stars.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
           radius: Math.random() * 1.5,
-          vx: (Math.random() - 0.5) * 0.2, // Small horizontal velocity
-          vy: (Math.random() - 0.5) * 0.2, // Small vertical velocity
+          vx: (Math.random() - 0.5) * 0.2,
+          vy: (Math.random() - 0.5) * 0.2,
           alpha: Math.random(),
         });
       }
@@ -47,17 +46,17 @@ const Starfield: React.FC = () => {
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Update position (subtle drift)
+        // Update position
         star.x += star.vx;
         star.y += star.vy;
 
-        // Wrap around logic (maintains seamless loop)
+        // Wrap around
         if (star.x < 0) star.x = canvas.width;
         if (star.x > canvas.width) star.x = 0;
         if (star.y < 0) star.y = canvas.height;
         if (star.y > canvas.height) star.y = 0;
 
-        // Twinkle (alpha fluctuation)
+        // Twinkle
         star.alpha += (Math.random() - 0.5) * 0.05;
         if (star.alpha < 0.2) star.alpha = 0.2;
         if (star.alpha > 1) star.alpha = 1;
@@ -66,12 +65,10 @@ const Starfield: React.FC = () => {
       animationFrameId = requestAnimationFrame(draw);
     };
 
-    // Initial setup and animation start
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
     draw();
 
-    // Cleanup function
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationFrameId);

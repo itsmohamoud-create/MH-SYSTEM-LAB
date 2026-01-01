@@ -21,12 +21,6 @@ const questions = [
     weights: [1, 2, 3, 4]
   },
   {
-    category: 'Education & Skills',
-    question: "How consistently are you acquiring and implementing new high-value skills?",
-    options: ["Rarely learning", "Learning but not applying", "Consistent growth", "Rapid acquisition & execution"],
-    weights: [1, 2, 3, 4]
-  },
-  {
     category: 'Business',
     question: "Do you have automated systems generating revenue without your active presence?",
     options: ["None", "Some manual systems", "Partially automated", "Fully automated"],
@@ -51,10 +45,9 @@ const AssessmentModal: React.FC<AssessmentModalProps> = ({ isOpen, onClose }) =>
     const maxScore = questions.length * 4;
     const percentage = (score / maxScore) * 100;
     
-    // Archetype Logic based on total score percentage
-    if (percentage < 50) return { title: "Foundation Needed", desc: "You are in the survival phase. Prioritize Sovereign Reset™ to stabilize your baseline." };
-    if (percentage < 80) return { title: "Building Momentum", desc: "You have potential but lack systems. Sovereign Builder™ will automate your growth." };
-    return { title: "Sovereign State", desc: "You are operating at a high level. Join our Mastermind to scale your legacy." };
+    if (percentage < 50) return { title: "Foundation Needed", desc: "You are in the survival phase. Prioritize Sovereign Reset™." };
+    if (percentage < 80) return { title: "Building Momentum", desc: "You have potential but lack systems. Sovereign Builder™ is for you." };
+    return { title: "Sovereign State", desc: "You are operating at a high level. Join our Mastermind." };
   };
 
   const result = getResult();
@@ -110,7 +103,7 @@ const AssessmentModal: React.FC<AssessmentModalProps> = ({ isOpen, onClose }) =>
              <p className="text-white/80 mb-8 leading-relaxed">
                {result.desc}
              </p>
-             <button onClick={onClose} className="btn-primary w-full py-4 bg-sovereign-gold text-[#0F2027] font-bold rounded-lg hover:bg-white transition-colors">
+             <button onClick={onClose} className="btn-primary w-full py-4 text-lg">
                Get Your Full Roadmap
              </button>
           </div>
